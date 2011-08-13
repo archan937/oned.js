@@ -1,3 +1,10 @@
+@font-face {
+  font-family: "Droid";
+  font-style: normal;
+  font-weight: normal;
+  src: local("Droid"), url("droid.woff") format("woff");
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,17 +25,8 @@ body {
 fieldset, img {
   border: 0; }
 
-pre, input, textarea {
+input, textarea {
   font-family: Helvetica Neue, Helvetica, Arial, sans-serif; }
-
-pre {
-  margin: 0 auto;
-  margin-top: 70px;
-  width: 400px;
-  font-size: 13.5px;
-  line-height: 1.25;
-  letter-spacing: -0.15px;
-  text-align: left; }
 
 table {
   border-collapse: collapse; }
@@ -90,12 +88,32 @@ a {
       border-bottom: 1px solid #333; }
 
 #page_content {
-  padding-top: 90px;
-  padding-bottom: 175px;
-  text-align: center; }
+  padding: 90px 200px 175px 200px; }
   #page_content a {
     font-size: 19px;
     font-weight: bold; }
+  #page_content div.code {
+    padding: 12px 15px;
+    color: #F0F0F0;
+    font-size: 12px;
+    font-family: Droid, Helvetica, Arial, sans-serif;
+    line-height: 135%;
+    letter-spacing: -0.65px;
+    text-shadow: none;
+    background: #111;
+    border: 1px solid white; }
+    #page_content div.code textarea {
+      width: 100%;
+      color: #F0F0F0;
+      font-size: 12px;
+      font-family: Droid, Helvetica, Arial, sans-serif;
+      line-height: 135%;
+      letter-spacing: -0.65px;
+      text-shadow: none;
+      resize: none;
+      overflow-x: none;
+      background: #111;
+      border: 0; }
 
 #page_footer {
   height: 100px;

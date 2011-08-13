@@ -6,7 +6,8 @@
       archan937@github: /oned.js - demo
     </title>
     <link href="assets/style.css" type="text/css" rel="stylesheet" media="screen"/>
-    <script src="../src/oned.js"  type="text/javascript"></script>
+    <script src="assets/script.js" type="text/javascript"></script>
+    <script src="../src/oned.js"   type="text/javascript"></script>
   </head>
   <body>
     <div id="page">
@@ -28,29 +29,46 @@
             /
             <a href="http://github.com/archan937/oned.js/tarball/master">TAR</a>
           </li>
-          
+
           <li class="separator">-</li>
           <li>
             <a href="http://twitter.com/archan937">@archan937</a>
           </li>
-          
+
           <li class="separator">-</li>
           <li>
             <a href="mailto:paul.engel@holder.nl">@holder.nl</a>
           </li>
         </ul>
         <div id="page_content">
-          <a href="#" onclick="Oned.sayHi()">Click here!</a>
+          <div class="code">
+            var element = document.createElement("div");<br>
+            element.innerHTML = "This is the oned.js demo HTML element";
+            <textarea spellcheck="false"></textarea>
+          </div>
+          <script>
+            if (false) {
+              var element = document.createElement("div");
+              element.innerHTML = "HOI!";
+              element._onAdd(function() {
+                alert("Added '" + this.innerHTML + "' ^^");
+              });
+              setTimeout(function() {
+                document.getElementById("page_content").appendChild(element);
+              }, 2500);
+            }
+          </script>
         </div>
       </div>
     </div>
     <div id="page_footer">
+
       made by
       <a href="mailto:paul.engel@holder.nl">Paul Engel</a>
-      
+
       <span class="separator">-</span>
       <a href="#" onclick="alert('Specify the company URL!')">archan937</a>
-      
+
     </div>
   </body>
 </html>
