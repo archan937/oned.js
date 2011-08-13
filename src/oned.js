@@ -92,6 +92,11 @@ Oned = (function() {
   };
 }());
 
+Array.indexOf || (Array.prototype.indexOf = function(v) {
+  for (var i = this.length; i-- && this[i] != v;);
+  return i;
+});
+
 Oned.init();
 
 }
