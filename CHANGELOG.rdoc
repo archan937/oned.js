@@ -1,0 +1,5 @@
+= oned.js CHANGELOG
+
+== Version 0.0.1 (August xxx, 2011)
+
+* Initial release
