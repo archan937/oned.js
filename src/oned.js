@@ -12,18 +12,83 @@ if (typeof(Oned) == "undefined") {
 // *
 
 Oned = (function() {
-  var foo = null, bar = true;
+  var extendjQuery = function() {
+    if (Oned.extendjQuery) {
+      jQuery.fn.onAdd = function(callback, parent) {
+        return this.each(function() {
+          this._onAdd(callback, parent);
+        });
+      };
+    }
+  };
 
-  var sayHi = function() {
-    alert("Hi, my name is oned.js!");
+  var extendHTMLElements = function() {
+    var elements = ["Anchor"   , "FieldSet", "Image"  , "Object"   , "Style"       ,
+                    "Applet"   , "Font"    , "Input"  , "OList"    , "TableCaption",
+                    "Area"     , "Form"    , "IsIndex", "OptGroup" , "TableCell"   ,
+                    "Base"     , "Frame"   , "Label"  , "Option"   , "TableCol"    ,
+                    "Body"     , "FrameSet", "Legend" , "Paragraph", "Table"       ,
+                    "BR"       , "Head"    , "LI"     , "Param"    , "TableRow"    ,
+                    "Button"   , "Heading" , "Link"   , "Pre"      , "TableSection",
+                    "Directory", "HR"      , "Map"    , "Quote"    , "TextArea"    ,
+                    "Div"      , "Html"    , "Menu"   , "Script"   , "Title"       ,
+                    "DList"    , "IFrame"  , "Meta"   , "Select"   , "UList"];
+
+    for (var i = 0; i < elements.length; i++) {
+      (function(Element) {
+
+        Element.prototype.parents = function() {
+          var parents = [];
+          if (this.parentNode && this.parentNode != document) {
+            parents.push(this.parentNode);
+            parents = parents.concat(this.parentNode.parents());
+          }
+          return parents;
+        };
+
+        Element.prototype._onAdd = function(callback, parent, child) {
+          if (typeof(this._onAdds) == "undefined") {
+            this._onAdds = [];
+          }
+          this._onAdds.push({callback: callback, parent: parent || document.documentElement, child: child || this});
+          return this;
+        };
+
+        var appendChild = Element.prototype.appendChild;
+        Element.prototype.appendChild = function(child) {
+          var result = appendChild.apply(this, arguments);
+
+          if (child._onAdds) {
+            var parents = this.parents();
+
+            for (var j = 0; j < child._onAdds.length; j++) {
+              var onAdd  = child._onAdds[j];
+              var parent = onAdd.parent;
+
+              if ((this == parent) || (parents.indexOf(parent) != -1)) {
+                onAdd.callback.apply(onAdd.child, []);
+              } else {
+                var root = parents.slice(-1)[0];
+                root._onAdd(onAdd.callback, onAdd.parent, onAdd.child);
+              }
+            }
+            child.onAdd = null;
+          }
+
+          return result;
+        };
+
+      })(eval("HTML" + elements[i] + "Element"));
+    }
   };
 
   return {
     version: "{version}",
     init: function() {
-      // do something
+      extendjQuery();
+      extendHTMLElements();
     },
-    sayHi: sayHi
+    extendjQuery: typeof(jQuery) != "undefined"
   };
 }());
 
