@@ -1,0 +1,106 @@
+h1. oned.js
+
+Trigger callback functions when native HTML or jQuery elements get added to the DOM tree
+
+h2. Introduction
+
+h4. What is in the name?
+
+You are probably thinking: "So what is 'oned' actually?". Well, you don't have to wonder anymore: *oned* is a "homophonic pun":http://en.wikipedia.org/wiki/Pun#Typology of the @_onAdd()@ function that this library provides and what's also quite convenient is the following definition:
+
+bq. *oned*
+meaning 'Owned'.. Has no w, which makes it 1337er
+
+(source: "Urban Dictionary":http://www.urbandictionary.com/define.php?term=oned :P)
+
+h4. Backbone.js
+
+I have been working with "Backbone.js":http://documentcloud.github.com/backbone/ a lot lately and stumbled upon the following problem:
+
+When using Backbone.js, you are dealing with @models@, @controllers@, @collections@ and @views@. The latter is meant to organize your interface, backed by models, of which each can be updated independently when the model changes, without having to redraw the page. Unfortunately, it is a common practice that the Backbone.js view does not have control over adding its own jQuery element to the DOM tree and thus the problem is that you cannot access or bind other elements within the tree from the @view.initialize()@ or @view.render()@ functions.
+
+In a particular case, I wanted to bind to the click event of a button which is located outside jQuery element of the view.
+
+h4. Enter oned.js
+
+To be able to do that, I have created @oned.js@ which makes it possible to define a callback function within a native HTML or jQuery element which gets triggered when it is added (@_onAdd@) to the DOM tree. Actually, to be more accurate, the callback function gets called when the element is appended to a DOM tree containing a certain specified parent (at default @document.documentElement@ which is the @<html>@ element).
+
+h2. Installation
+
+Just include oned.js:
+
+<pre>
+  <script src="path/to/oned.js" type="text/javascript"></script>
+</pre>
+
+*Note*: include @oned.min.js@ for the minified version
+
+h2. Usage
+
+All you have to do is call the @_onAdd()@ of a native HTML or @onAdd()@ of a jQuery element. It accepts the following arguments:
+
+* @callback@ (required) - The callback function which gets triggered
+* @parent@ (default: @document.documentElement@) - The native DOM element required as parent before triggering the callback function
+
+h3. Native HTML element
+
+<pre>
+  var element = document.createElement("div");
+  element._onAdd(function() {
+    alert("Appended the DIV element!");
+  });
+  // elsewhere
+  document.getElementById("primary_content").appendChild(element);
+</pre>
+
+*Note*: it is @_onAdd@ (*with* underscore)
+
+h3. jQuery element
+
+<pre>
+  var element = $("div");
+  element.onAdd(function() {
+    alert("Appended the DIV element!");
+  });
+  // elsewhere
+  document.getElementById("primary_content").appendChild(element);
+</pre>
+
+*Note*: it is @onAdd@ (*without* underscore)
+
+h3. Backbone view
+
+<pre>
+  render: function() {
+    $(this.el).html(JST["my/mustache/template"]());
+
+    // do something
+
+    var self = this;
+    $(this.el).onAdd(function() {
+      $(self.el).closest(".shared_parent")
+                .find(".some_button")
+                .click(self.someCallbackFunction);
+    });
+
+    return this;
+  }
+</pre>
+
+*Note*: it is @onAdd@ (*without* underscore)
+
+h2. Contact me
+
+For support, remarks and requests please mail me at "paul.engel@holder.nl":mailto:paul.engel@holder.nl.
+
+h2. License
+
+Copyright (c) 2011 Paul Engel, released under the MIT license
+
+"http://github.com/archan937":http://github.com/archan937 – "http://twitter.com/archan937":http://twitter.com/archan937 – "paul.engel@holder.nl":mailto:paul.engel@holder.nl
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

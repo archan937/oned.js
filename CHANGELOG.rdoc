@@ -1,5 +1,5 @@
 = oned.js CHANGELOG
 
-== Version 0.0.1 (August xxx, 2011)
+== Version 0.1.0 (August 15, 2011)
 
 * Initial release
