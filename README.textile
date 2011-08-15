@@ -37,10 +37,10 @@ Just include oned.js:
 
 h2. Usage
 
-All you have to do is call the @_onAdd()@ of a native HTML or jQuery element. It accepts the following arguments:
+All you have to do is call the @_onAdd()@ of a native HTML or @onAdd()@ of a jQuery element. It accepts the following arguments:
 
 * @callback@ (required) - The callback function which gets triggered
-* @parent@ (default: @document.documentElement@) - The native DOM element which has to be located within the DOM tree to the element gets appended before triggering the callback function
+* @parent@ (default: @document.documentElement@) - The native DOM element required as parent before triggering the callback function
 
 h3. Native HTML element
 
@@ -53,6 +53,8 @@ h3. Native HTML element
   document.getElementById("primary_content").appendChild(element);
 </pre>
 
+*Note*: it is @_onAdd@ (*with* underscore)
+
 h3. jQuery element
 
 <pre>
@@ -64,7 +66,7 @@ h3. jQuery element
   document.getElementById("primary_content").appendChild(element);
 </pre>
 
-*Note*: it is @onAdd@ (*without* the underscore)
+*Note*: it is @onAdd@ (*without* underscore)
 
 h3. Backbone view
 
@@ -85,7 +87,7 @@ h3. Backbone view
   }
 </pre>
 
-*Note*: it is @onAdd@ (*without* the underscore)
+*Note*: it is @onAdd@ (*without* underscore)
 
 h2. Contact me
 

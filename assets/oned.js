@@ -1,14 +1,14 @@
 if (typeof(Oned) == "undefined") {
 
 // *
-// * oned.js {version} (Uncompressed)
+// * oned.js 0.1.0 (Uncompressed)
 // * Trigger callback functions when native HTML or jQuery elements get added to the DOM tree
 // *
-// * (c) {year} Paul Engel (Internetbureau Holder B.V.)
+// * (c) 2011 Paul Engel (Internetbureau Holder B.V.)
 // * Except otherwise noted, oned.js is licensed under
 // * http://creativecommons.org/licenses/by-sa/3.0
 // *
-// * $Date: {date} $
+// * $Date: 2011-08-15 22:39:45 +0200 (Mon, 15 August 2011) $
 // *
 
 Oned = (function() {
@@ -83,7 +83,7 @@ Oned = (function() {
   };
 
   return {
-    version: "{version}",
+    version: "0.1.0",
     init: function() {
       extendjQuery();
       extendHTMLElements();
