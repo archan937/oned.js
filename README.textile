@@ -37,9 +37,55 @@ Just include oned.js:
 
 h2. Usage
 
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+All you have to do is call the @_onAdd()@ of a native HTML or jQuery element. It accepts the following arguments:
 
-Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit.
+* @callback@ (required) - The callback function which gets triggered
+* @parent@ (default: @document.documentElement@) - The native DOM element which has to be located within the DOM tree to the element gets appended before triggering the callback function
+
+h3. Native HTML element
+
+<pre>
+  var element = document.createElement("div");
+  element._onAdd(function() {
+    alert("Appended the DIV element!");
+  });
+  // elsewhere
+  document.getElementById("primary_content").appendChild(element);
+</pre>
+
+h3. jQuery element
+
+<pre>
+  var element = $("div");
+  element.onAdd(function() {
+    alert("Appended the DIV element!");
+  });
+  // elsewhere
+  document.getElementById("primary_content").appendChild(element);
+</pre>
+
+*Note*: it is @onAdd@ (*without* the underscore)
+
+h3. Backbone view
+
+<pre>
+  render: function() {
+    $(this.el).html(JST["my/mustache/template"]());
+
+    // do something
+
+    var self = this;
+    $(this.el).onAdd(function() {
+      $(self.el).closest(".shared_parent")
+                .find(".some_button")
+                .click(self.someCallbackFunction);
+    });
+
+    return this;
+  }
+</pre>
+
+*Note*: it is @onAdd@ (*without* the underscore)
 
 h2. Contact me
 
