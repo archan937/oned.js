@@ -88,32 +88,45 @@ a {
       border-bottom: 1px solid #333; }
 
 #page_content {
-  padding: 90px 200px 175px 200px; }
+  padding: 90px 200px 210px 200px;
+  text-align: center; }
   #page_content a {
     font-size: 19px;
     font-weight: bold; }
-  #page_content div.code {
+  #page_content h3 {
+    padding-bottom: 10px;
+    font-size: 18px; }
+  #page_content div.code, #page_content div.element {
+    margin-bottom: 8px;
     padding: 12px 15px;
     color: #F0F0F0;
     font-size: 12px;
     font-family: Droid, Helvetica, Arial, sans-serif;
-    line-height: 135%;
+    line-height: 140%;
     letter-spacing: -0.65px;
     text-shadow: none;
+    text-align: left;
     background: #111;
     border: 1px solid white; }
     #page_content div.code textarea {
       width: 100%;
+      padding-left: 12px;
       color: #F0F0F0;
       font-size: 12px;
       font-family: Droid, Helvetica, Arial, sans-serif;
-      line-height: 135%;
+      line-height: 140%;
       letter-spacing: -0.65px;
       text-shadow: none;
       resize: none;
       overflow-x: none;
       background: #111;
       border: 0; }
+  #page_content div.element {
+    margin-top: 30px;
+    color: #25E21F;
+    text-align: center !important; }
+  #page_content a.click {
+    font-size: 18px; }
 
 #page_footer {
   height: 100px;

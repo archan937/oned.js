@@ -4,7 +4,7 @@ if (typeof(Oned) == "undefined") {
 // * oned.js {version} (Uncompressed)
 // * Trigger callback functions when native HTML or jQuery elements get added to the DOM tree
 // *
-// * (c) {year} Paul Engel (archan937)
+// * (c) {year} Paul Engel (Internetbureau Holder B.V.)
 // * Except otherwise noted, oned.js is licensed under
 // * http://creativecommons.org/licenses/by-sa/3.0
 // *
@@ -91,6 +91,11 @@ Oned = (function() {
     extendjQuery: typeof(jQuery) != "undefined"
   };
 }());
+
+Array.indexOf || (Array.prototype.indexOf = function(v) {
+  for (var i = this.length; i-- && this[i] != v;);
+  return i;
+});
 
 Oned.init();
 
