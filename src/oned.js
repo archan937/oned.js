@@ -88,7 +88,7 @@ Oned = (function() {
     var result = appendChild.apply(this, [child]);
 
     if (child._onAdds) {
-      var parents = child.parents();
+      var parents = typeof(jQuery) != "undefined" ? jQuery(child).parents() : child.parents();
       if (!parents.indexOf) {
         parents = jQuery.makeArray(parents);
       }
