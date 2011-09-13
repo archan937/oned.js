@@ -14,15 +14,31 @@ if (typeof(Oned) == "undefined") {
 Oned = (function() {
   var extendjQuery = function() {
     if (Oned.extendjQuery) {
-      jQuery.fn.onAdd = function(callback, parent) {
+      jQuery.fn.onAdd = function() {
+        var args = arguments;
         return this.each(function() {
-          this._onAdd(callback, parent);
+          Oned.addCallback.apply(this, args);
         });
       };
+      if (navigator.appName == "Microsoft Internet Explorer") {
+        var append = jQuery.fn.append;
+        jQuery.fn.append = function(child) {
+          var self = this;
+          return this.each(function() {
+            child.each(function() {
+              Oned.addChild.apply(self, [append, this]);
+            });
+          });
+        };
+      }
     }
   };
 
   var extendHTMLElements = function() {
+    if (navigator.appName == "Microsoft Internet Explorer") {
+      return;
+    }
+
     var elements = ["Anchor"   , "FieldSet", "Image"  , "Object"   , "Style"       ,
                     "Applet"   , "Font"    , "Input"  , "OList"    , "TableCaption",
                     "Area"     , "Form"    , "IsIndex", "OptGroup" , "TableCell"   ,
@@ -46,40 +62,51 @@ Oned = (function() {
           return parents;
         };
 
-        Element.prototype._onAdd = function(callback, parent, child) {
-          if (typeof(this._onAdds) == "undefined") {
-            this._onAdds = [];
-          }
-          this._onAdds.push({callback: callback, parent: parent || document.documentElement, child: child || this});
-          return this;
+        Element.prototype.onAdd = function() {
+          return Oned.addCallback.apply(this, arguments);
         };
 
         var appendChild = Element.prototype.appendChild;
         Element.prototype.appendChild = function(child) {
-          var result = appendChild.apply(this, arguments);
-
-          if (child._onAdds) {
-            var parents = this.parents();
-
-            for (var j = 0; j < child._onAdds.length; j++) {
-              var onAdd  = child._onAdds[j];
-              var parent = onAdd.parent;
-
-              if ((this == parent) || (parents.indexOf(parent) != -1)) {
-                onAdd.callback.apply(onAdd.child, []);
-              } else {
-                var root = parents.slice(-1)[0];
-                root._onAdd(onAdd.callback, onAdd.parent, onAdd.child);
-              }
-            }
-            child.onAdd = null;
-          }
-
-          return result;
+          return Oned.addChild.apply(this, [appendChild, child]);
         };
 
       })(window["HTML" + elements[i] + "Element"]);
     }
+  };
+
+  var addCallback = function() {
+    var args = Array.prototype.slice.call(arguments);
+    if (typeof(args.slice(-1)[0]) == "boolean" ? args.pop() : typeof(this._onAdds) == "undefined") {
+      this._onAdds = [];
+    }
+    this._onAdds.push({callback: args[0], parent: args[1] || document.documentElement, child: args[2] || this});
+    return this;
+  };
+
+  var addChild = function(appendChild, child) {
+    var result = appendChild.apply(this, [child]);
+
+    if (child._onAdds) {
+      var parents = element.parents();
+      if (!parents.indexOf) {
+        parents = jQuery.makeArray(parents);
+      }
+      for (var i = 0; i < child._onAdds.length; i++) {
+        var onAdd  = child._onAdds[i];
+        var parent = onAdd.parent;
+
+        if ((this == parent) || (parents.indexOf(parent) != -1)) {
+          onAdd.callback.apply(onAdd.child, []);
+        } else {
+          var root = parents.slice(-1)[0];
+          root.onAdd(onAdd.callback, onAdd.parent, onAdd.child);
+        }
+      }
+      child._onAdds = null;
+    }
+
+    return result;
   };
 
   return {
@@ -88,6 +115,8 @@ Oned = (function() {
       extendjQuery();
       extendHTMLElements();
     },
+    addCallback: addCallback,
+    addChild: addChild,
     extendjQuery: typeof(jQuery) != "undefined"
   };
 }());
