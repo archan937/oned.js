@@ -1,5 +1,10 @@
 = oned.js CHANGELOG
 
+== Version 0.1.1 (September 13, 2011)
+
+* Made oned.js compatible with IE6+ (booya!)
+* Not using eval anymore, but window[] instead (thanks to arexkun)
+
 == Version 0.1.0 (August 15, 2011)
 
 * Initial release
