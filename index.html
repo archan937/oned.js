@@ -6,6 +6,9 @@
       archan937@github: /oned.js - demo
     </title>
     <link href="assets/style.css" type="text/css" rel="stylesheet" media="screen"/>
+    <!--[if IE]>
+      <script src="assets/jquery.js" type="text/javascript"></script>
+    <![endif]-->
     <script src="assets/script.js" type="text/javascript"></script>
     <script src="assets/oned.js"   type="text/javascript"></script>
   </head>
@@ -45,14 +48,14 @@
           <div class="code">
             var element = document.createElement("div");<br>
             element.className = "element";<br>
-            element.innerHTML = "This is the oned.js demo HTML element!";
-            element._onAdd(function() {
+            element.innerHTML = "This is the oned.js demo HTML element!";<br>
+            element.onAdd(function() {
               <textarea id="on_add" spellcheck="false">alert('The callback is triggered!');</textarea>
             });
           </div>
           <input type="button" value="Redefine element" onclick="defineElement()">
           <br><br><br>
-          <a class="click" href="#" onclick="addElement()">Click to add element!</a>
+          <a class="click" href="#" onclick="addElement(); return false">Click to add element!</a>
         </div>
       </div>
     </div>

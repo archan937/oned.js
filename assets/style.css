@@ -109,17 +109,21 @@ a {
     background: #111;
     border: 1px solid white; }
     #page_content div.code textarea {
-      width: 100%;
+      width: 480px;
       padding-left: 12px;
       color: #F0F0F0;
       font-size: 12px;
       font-family: Droid, Helvetica, Arial, sans-serif;
       line-height: 140%;
+      *line-height: 100%;
       letter-spacing: -0.65px;
       text-shadow: none;
       resize: none;
       overflow-x: none;
       background: #111;
+      outline: none;
+      overflow: hidden;
+      display: block;
       border: 0; }
   #page_content div.element {
     margin-top: 30px;
