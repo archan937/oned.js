@@ -110,6 +110,7 @@ a {
     border: 1px solid white; }
     #page_content div.code textarea {
       width: 100%;
+      margin-bottom: -5px;
       padding-left: 12px;
       color: #F0F0F0;
       font-size: 12px;
@@ -120,6 +121,7 @@ a {
       resize: none;
       overflow-x: none;
       background: #111;
+      outline: none;
       border: 0; }
   #page_content div.element {
     margin-top: 30px;
@@ -127,6 +129,11 @@ a {
     text-align: center !important; }
   #page_content a.click {
     font-size: 18px; }
+
+@-moz-document url-prefix() {
+  #page_content div.code textarea {
+    margin-bottom: -17px; }
+}
 
 #page_footer {
   height: 100px;

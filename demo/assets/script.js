@@ -21,7 +21,7 @@ HTMLTextAreaElement.prototype.autoResize = function() {
     for (var i = 0; i < lines.length; i++) {
       count += parseInt(lines[i].length / 74);
     }
-    self.style.height = count * 17 + "px";
+    self.rows = count;
   }
 
   Event.on(this, "keypress", resize);
@@ -39,10 +39,10 @@ function defineElement() {
   element.className = "element";
   element.innerHTML = "This is the oned.js demo HTML element!";
   element._onAdds = [];
-  element._onAdd(eval("function() {" +
+  element._onAdd(eval("(function() {" +
     document.getElementById("on_add").value + ";" +
-    "this._onAdds = [];" +
-  "}"));
+    "defineElement();" +
+  "})"));
 };
 
 function addElement() {
