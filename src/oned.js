@@ -78,7 +78,7 @@ Oned = (function() {
           return result;
         };
 
-      })(eval("HTML" + elements[i] + "Element"));
+      })(window["HTML" + elements[i] + "Element"]);
     }
   };
 
