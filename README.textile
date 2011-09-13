@@ -6,7 +6,7 @@ h2. Introduction
 
 h4. What is in the name?
 
-You are probably thinking: "So what is 'oned' actually?". Well, you don't have to wonder anymore: *oned* is a "homophonic pun":http://en.wikipedia.org/wiki/Pun#Typology of the @_onAdd()@ function that this library provides and what's also quite convenient is the following definition:
+You are probably thinking: "So what is 'oned' actually?". Well, you don't have to wonder anymore: *oned* is a "homophonic pun":http://en.wikipedia.org/wiki/Pun#Typology of the @onAdd()@ function that this library provides and what's also quite convenient is the following definition:
 
 bq. *oned*
 meaning 'Owned'.. Has no w, which makes it 1337er
@@ -23,7 +23,11 @@ In a particular case, I wanted to bind to the click event of a button which is l
 
 h4. Enter oned.js
 
-To be able to do that, I have created @oned.js@ which makes it possible to define a callback function within a native HTML or jQuery element which gets triggered when it is added (@_onAdd@) to the DOM tree. Actually, to be more accurate, the callback function gets called when the element is appended to a DOM tree containing a certain specified parent (at default @document.documentElement@ which is the @<html>@ element).
+To be able to do that, I have created @oned.js@ which makes it possible to define a callback function within a native HTML or jQuery element which gets triggered when it is added (@onAdd@) to the DOM tree. Actually, to be more accurate, the callback function gets called when the element is appended to a DOM tree containing a certain specified parent (at default @document.documentElement@ which is the @<html>@ element).
+
+h5. IE compatibility curse
+
+Unfortunately, you are *obligated* to use "jQuery":http://jquery.com as Internet Explorer (6, 7 & 8) Object prototypes are read-only.
 
 h2. Installation
 
@@ -37,7 +41,7 @@ Just include oned.js:
 
 h2. Usage
 
-All you have to do is call the @_onAdd()@ of a native HTML or @onAdd()@ of a jQuery element. It accepts the following arguments:
+All you have to do is call the @onAdd()@ of a native HTML or jQuery element. It accepts the following arguments:
 
 * @callback@ (required) - The callback function which gets triggered
 * @parent@ (default: @document.documentElement@) - The native DOM element required as parent before triggering the callback function
@@ -46,14 +50,12 @@ h3. Native HTML element
 
 <pre>
   var element = document.createElement("div");
-  element._onAdd(function() {
+  element.onAdd(function() {
     alert("Appended the DIV element!");
   });
   // elsewhere
   document.getElementById("primary_content").appendChild(element);
 </pre>
-
-*Note*: it is @_onAdd@ (*with* underscore)
 
 h3. jQuery element
 
@@ -63,10 +65,8 @@ h3. jQuery element
     alert("Appended the DIV element!");
   });
   // elsewhere
-  document.getElementById("primary_content").appendChild(element);
+  $("#primary_content").append(element);
 </pre>
-
-*Note*: it is @onAdd@ (*without* underscore)
 
 h3. Backbone view
 
@@ -86,8 +86,6 @@ h3. Backbone view
     return this;
   }
 </pre>
-
-*Note*: it is @onAdd@ (*without* underscore)
 
 h2. Contact me
 
