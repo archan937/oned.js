@@ -52,6 +52,9 @@ Oned = (function() {
 
     for (var i = 0; i < elements.length; i++) {
       (function(Element) {
+        if(typeof(Element) == "undefined") {
+          return
+        }
 
         Element.prototype.parents = function() {
           var parents = [];
